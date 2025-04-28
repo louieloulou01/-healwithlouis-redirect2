@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heal With Louis</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <script>
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('install-bar').style.display = 'block';
+
+      document.getElementById('installBtn').addEventListener('click', () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          deferredPrompt = null;
+          document.getElementById('install-bar').style.display = 'none';
+        });
+      });
+    });
+  </script>
+</head>
+<body style="margin:0;padding:0;height:100vh;">
+  <iframe src="https://www.healwithlouis.com" style="width:100%;height:100vh;border:none;"></iframe>
+
+  <div id="install-bar" style="position:fixed;bottom:0;width:100%;background:#222;color:#fff;padding:10px;text-align:center;z-index:1000;display:none;">
+    <button id="installBtn" style="padding:10px 20px;font-size:16px;">📲 Install This App</button>
+  </div>
+</body>
+</html>
